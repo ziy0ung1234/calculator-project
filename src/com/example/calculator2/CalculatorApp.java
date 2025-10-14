@@ -37,32 +37,27 @@ public class CalculatorApp {
             int secondNum = Integer.parseInt(input2);
             char operator = opInput.charAt(0);
             boolean error = false;
-            int result = 0;
 
             switch(operator) {
                 case '+':
-                    result = cal.plus(firstNum,secondNum);
+                    cal.plus(firstNum,secondNum);
                     break;
                 case '-':
-                    result = cal.minus(firstNum,secondNum);
+                    cal.minus(firstNum,secondNum);
                     break;
                 case '*':
-                    result = cal.multiply(firstNum,secondNum);
+                    cal.multiply(firstNum,secondNum);
                     break;
                 case '/':
-                    if(secondNum == 0) {
-                        System.out.println("나눗셈에서 0으로 나눌 수 없습니다.");
-                        error = true;
-                    } else {
-                        result = cal.divide(firstNum,secondNum);
-                    }
+                    int temp = cal.divide(firstNum,secondNum);
+                    error = temp == 0;
                     break;
                 default:
                     System.out.println("잘못된 연산기호입니다.");
                     error = true;
             }
             if(!error) {
-                System.out.println("결과는 " + result + "입니다.");
+                System.out.println("결과는 " + cal.getResult() + "입니다.");
                 System.out.println("더 계산하시겠습니까? exit 입력 시 종료합니다. 계속하시려면 아무키나 눌러주세요");
                 String inputExit = sc.next();
                 if(inputExit.equalsIgnoreCase("exit")) {
