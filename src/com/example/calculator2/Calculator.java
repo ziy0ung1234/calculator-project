@@ -2,7 +2,7 @@ package com.example.calculator2;
 
 public class Calculator {
     //속성
-    double result;
+    int result;
 
     //기본 생성자
     public Calculator() {
@@ -10,20 +10,19 @@ public class Calculator {
     }
 
     //기능
-    public double plus(double a, double b) {
+    public int plus(int a, int b) {
         result = a + b;
         return result;
     }
-    public double minus(double a, double b) {
+    public int minus(int a, int b) {
         result = a - b;
         return result;
     }
-    public double multiply(double a, double b) {
+    public int multiply(int a, int b) {
         result = a * b;
-        System.out.println("!!"+result);
         return result;
     }
-    public double divide(double a, double b) {
+    public int divide(int a, int b) {
         result = a / b;
         return result;
     }
