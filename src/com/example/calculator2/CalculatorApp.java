@@ -41,8 +41,11 @@ public class CalculatorApp {
                     cal.multiply(firstNum,secondNum);
                     break;
                 case '/':
-                    int temp = cal.divide(firstNum,secondNum);
-                    error = temp == 0;
+                    if(cal.isNotDividedByZero(secondNum)) {
+                        error = true;
+                    } else {
+                        cal.divide(firstNum,secondNum);
+                    }
                     break;
                 default:
                     System.out.println("잘못된 연산기호입니다.");

@@ -4,14 +4,10 @@ import java.util.ArrayDeque;
 
 public class Calculator {
     //속성
-    private int result;
-    private ArrayDeque<Integer> results;
+    private int result = 0;
+    private ArrayDeque<Integer> results = new ArrayDeque<>();
 
-    //기본 생성자
-    public Calculator() {
-        this.result = 0;
-        this.results = new ArrayDeque<>();
-    }
+    //기본 생성자 생략
 
     //기능
     public int plus(int a, int b) {
@@ -30,12 +26,9 @@ public class Calculator {
         return result;
     }
     public int divide(int a, int b) {
-        if (!isDividedByZero(b)) {
-            result = a / b;
-            setResults(result);
-            return result;
-        }
-        return 0;
+        result = a / b;
+        setResults(result);
+        return result;
     }
     // 연산 결과 관련 기능
     public int getResult(){
@@ -58,7 +51,7 @@ public class Calculator {
         }
         return true;
     }
-    public boolean isDividedByZero(int n) {
+    public boolean isNotDividedByZero(int n) {
         if(n == 0) {
             System.out.println("나눗셈에서 0으로 나눌 수 없습니다.");
             return true;
