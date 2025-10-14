@@ -1,36 +1,62 @@
 package com.example.calculator2;
 
+import java.util.ArrayDeque;
+
 public class Calculator {
     //속성
     private int result;
+    private ArrayDeque<Integer> results;
 
     //기본 생성자
     public Calculator() {
         this.result = 0;
+        this.results = new ArrayDeque<>();
     }
 
     //기능
     public int plus(int a, int b) {
         result = a + b;
+        setResults(result);
         return result;
     }
     public int minus(int a, int b) {
         result = a - b;
+        setResults(result);
         return result;
     }
     public int multiply(int a, int b) {
         result = a * b;
+        setResults(result);
         return result;
     }
     public int divide(int a, int b) {
         if (!isDividedByZero(b)) {
             result = a / b;
+            setResults(result);
+            return result;
         }
         return 0;
     }
-    // 연산 결과 저장
-    public int getResult() {
+    // 연산 결과 관련 기능
+    public int getResult(){
         return result;
+    }
+    public void setResults(int result) {
+        this.results.add(result);
+    }
+    public void removeFirstResult() {
+        if(!results.isEmpty()){
+            this.results.removeFirst();
+        }
+        System.out.println("당신의 최근 계산 결과 값 기록입니다 : "+ results);
+    }
+    //검증
+    public boolean isInteger(String str) {
+        if(!str.matches("\\d+")) {
+            System.out.println("정수를 입력해주세요.");
+            return false;
+        }
+        return true;
     }
     public boolean isDividedByZero(int n) {
         if(n == 0) {
@@ -39,4 +65,5 @@ public class Calculator {
         }
         return false;
     }
+
 }
