@@ -34,6 +34,9 @@ public class Calculator {
     public int getResult(){
         return result;
     }
+    public ArrayDeque<Integer> getResults() {
+        return new ArrayDeque<>(this.results);
+    }
     public void setResults(int result) {
         this.results.add(result);
     }
@@ -41,7 +44,7 @@ public class Calculator {
         if(!results.isEmpty()){
             this.results.removeFirst();
         }
-        System.out.println("당신의 최근 계산 결과 값 기록입니다 : "+ results);
+        System.out.println("당신의 최근 계산 결과 값 기록입니다 : "+ getResults());
     }
     //검증
     public boolean isInteger(String str) {
