@@ -1,7 +1,9 @@
 package com.example.calculator2_3;
 
-import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.DoubleBinaryOperator; // 함수형 인터페이스 임포트
+import java.util.stream.Collectors;
 
 enum OperatorType {
     PLUS('+',(x, y) -> x + y),
@@ -32,7 +34,7 @@ enum OperatorType {
 public class ArithmeticCalculator <T extends Number> {
     //속성
     private Number result = 0;
-    private ArrayDeque<Number> results =  new ArrayDeque<>();
+    private List<Number> results =  new ArrayList<>();
 
     //기본 생성자 생략
 
@@ -59,22 +61,24 @@ public class ArithmeticCalculator <T extends Number> {
     public Number getResult(){
         return result;
     }
-    public ArrayDeque<Number> getResults() {
-        return new ArrayDeque<>(this.results);
+    public ArrayList<Number> getResults() {
+        return new ArrayList<>(this.results);
     }
     public void setResults(Number result) {
         this.results.add(result);
     }
-    public void removeFirstResult() {
-        if(!results.isEmpty()){
-            this.results.removeFirst();
-        }
-        System.out.println("당신의 최근 계산 결과 값 기록입니다 : "+ getResults());
+    public void filterResults(String str) {
+        Number num = str.contains(".") ? Double.parseDouble(str) : Integer.parseInt(str);
+        List<Number> numList = getResults().stream()
+                        .filter(n -> n.doubleValue() > num.doubleValue())
+                        .collect(Collectors.toList());
+
+        System.out.println(" 당신이 입력한 값보다 큰 결과들 입니다.: "+ numList);
     }
     //검증
-    public boolean isInteger(String str) {
-        if(!str.matches("\\d+")) {
-            System.out.println("정수를 입력해주세요.");
+    public boolean isDigit(String str) {
+        if(!str.matches("^-?\\d+(\\.\\d+)?$")) {
+            System.out.println("숫자를 입력해주세요.");
             return false;
         }
         return true;
