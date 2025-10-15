@@ -1,62 +1,68 @@
 package com.example.calculator2_3;
 
 import java.util.ArrayDeque;
-import java.util.function.IntBinaryOperator; // 함수형 인터페이스 임포트
+import java.util.function.DoubleBinaryOperator; // 함수형 인터페이스 임포트
 
 enum OperatorType {
     PLUS('+',(x, y) -> x + y),
     MINUS('-', (x, y) -> x - y),
     MULTIPLY('*', (x, y) -> x * y),
     DIVIDE('/',(x, y) -> x / y);
-
+    //속성
     private final char operator;
-    private final IntBinaryOperator op;
+    private final DoubleBinaryOperator op;
 
-    OperatorType(char operator, IntBinaryOperator op) {
+    //생성자
+    OperatorType(char operator, DoubleBinaryOperator op) {
         this.operator = operator;
         this.op = op;
     }
 
+    //기능
     public static OperatorType parseOperator(char c) {
         for (OperatorType op : OperatorType.values()) {
             if (op.operator == c) return op;
         }
         return null;
     }
-    public int apply(int x, int y) {
-        return op.applyAsInt(x, y);
+    public double apply(double x, double y) {
+        return op.applyAsDouble(x, y);
     }
 }
-public class ArithmeticCalculator {
+public class ArithmeticCalculator <T extends Number> {
     //속성
-    private int result = 0;
-    private ArrayDeque<Integer> results = new ArrayDeque<>();
+    private Number result = 0;
+    private ArrayDeque<Number> results =  new ArrayDeque<>();
 
     //기본 생성자 생략
 
     //기능
-    public boolean calculate(int a, int b, char op) {
+    public boolean calculate(T a, T b, char op) {
         OperatorType operator = OperatorType.parseOperator(op);
-        //TODO 예외처리
         if (operator == null) {
             System.out.println("잘못된 연산기호입니다.");
             return true;
         }
-        if (operator == OperatorType.DIVIDE && isNotDividedByZero(b)) {
+        double x = a.doubleValue();
+        double y = b.doubleValue();
+        if (operator == OperatorType.DIVIDE && isNotDividedByZero(y)) {
             return true; // error
         }
-        result = operator.apply(a, b);
+
+        // 결과값 저장 전 정수 실수 판별
+        double temp = operator.apply(x, y);
+        result = DoubleOrInt(temp);
         setResults(result);
         return false;
     }
     // 연산 결과 관련 기능
-    public int getResult(){
+    public Number getResult(){
         return result;
     }
-    public ArrayDeque<Integer> getResults() {
+    public ArrayDeque<Number> getResults() {
         return new ArrayDeque<>(this.results);
     }
-    public void setResults(int result) {
+    public void setResults(Number result) {
         this.results.add(result);
     }
     public void removeFirstResult() {
@@ -73,12 +79,16 @@ public class ArithmeticCalculator {
         }
         return true;
     }
-    public boolean isNotDividedByZero(int n) {
+    public boolean isNotDividedByZero(double n) {
         if(n == 0) {
             System.out.println("나눗셈에서 0으로 나눌 수 없습니다.");
             return true;
         }
         return false;
+    }
+    public Number DoubleOrInt(double x) {
+        if(x % 1 == 0) return (int) x;
+        else return x;
     }
 
 }
