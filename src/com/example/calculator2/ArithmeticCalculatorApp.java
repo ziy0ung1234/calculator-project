@@ -1,10 +1,10 @@
 package com.example.calculator2;
 import java.util.*;
 
-public class CalculatorApp {
+public class ArithmeticCalculatorApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator cal = new Calculator();
+        ArithmeticCalculator cal = new ArithmeticCalculator();
 
         System.out.println("안녕하세요 계산기입니다.");
         System.out.println("두 개의 숫자(0 이상)와 연산기호(+,-,*,/)를 입력할 수 있어요.");

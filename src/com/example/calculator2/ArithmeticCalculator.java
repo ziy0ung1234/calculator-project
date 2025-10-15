@@ -1,8 +1,33 @@
 package com.example.calculator2;
 
 import java.util.ArrayDeque;
+import java.util.function.IntBinaryOperator; // 함수형 인터페이스 임포트
 
-public class Calculator {
+enum OperatorType {
+    PLUS('+',(x, y) -> x + y),
+    MINUS('-', (x, y) -> x - y),
+    MULTIPLY('*', (x, y) -> x * y),
+    DIVIDE('/',(x, y) -> x / y);
+
+    private final char operator;
+    private final IntBinaryOperator op;
+
+    OperatorType(char operator, IntBinaryOperator op) {
+        this.operator = operator;
+        this.op = op;
+    }
+
+    public static OperatorType parseOperator(char c) {
+        for (OperatorType op : OperatorType.values()) {
+            if (op.operator == c) return op;
+        }
+        return null;
+    }
+    public int apply(int x, int y) {
+        return op.applyAsInt(x, y);
+    }
+}
+public class ArithmeticCalculator {
     //속성
     private int result = 0;
     private ArrayDeque<Integer> results = new ArrayDeque<>();
@@ -11,49 +36,18 @@ public class Calculator {
 
     //기능
     public boolean calculate(int a, int b, char op) {
-        boolean error = false;
-        switch(op) {
-            case '+':
-                plus(a,b);
-                break;
-            case '-':
-                minus(a,b);
-                break;
-            case '*':
-                multiply(a,b);
-                break;
-            case '/':
-                if(isNotDividedByZero(b)) {
-                    error = true;
-                } else {
-                    divide(a,b);
-                }
-                break;
-            default:
-                System.out.println("잘못된 연산기호입니다.");
-                error = true;
+        OperatorType operator = OperatorType.parseOperator(op);
+        //TODO 예외처리
+        if (operator == null) {
+            System.out.println("잘못된 연산기호입니다.");
+            return true;
         }
-        return error;
-    }
-    public int plus(int a, int b) {
-        result = a + b;
+        if (operator == OperatorType.DIVIDE && isNotDividedByZero(b)) {
+            return true; // error
+        }
+        result = operator.apply(a, b);
         setResults(result);
-        return result;
-    }
-    public int minus(int a, int b) {
-        result = a - b;
-        setResults(result);
-        return result;
-    }
-    public int multiply(int a, int b) {
-        result = a * b;
-        setResults(result);
-        return result;
-    }
-    public int divide(int a, int b) {
-        result = a / b;
-        setResults(result);
-        return result;
+        return false;
     }
     // 연산 결과 관련 기능
     public int getResult(){
