@@ -28,30 +28,9 @@ public class CalculatorApp {
             int firstNum = Integer.parseInt(input1);
             int secondNum = Integer.parseInt(input2);
             char operator = opInput.charAt(0);
-            boolean error = false;
 
-            switch(operator) {
-                case '+':
-                    cal.plus(firstNum,secondNum);
-                    break;
-                case '-':
-                    cal.minus(firstNum,secondNum);
-                    break;
-                case '*':
-                    cal.multiply(firstNum,secondNum);
-                    break;
-                case '/':
-                    if(cal.isNotDividedByZero(secondNum)) {
-                        error = true;
-                    } else {
-                        cal.divide(firstNum,secondNum);
-                    }
-                    break;
-                default:
-                    System.out.println("잘못된 연산기호입니다.");
-                    error = true;
-            }
-            if(!error) {
+            boolean calErr = cal.calculate(firstNum, secondNum, operator);
+            if(!calErr) {
                 System.out.println("결과는 " + cal.getResult() + "입니다.");
                 System.out.println("더 계산하시겠습니까? exit 입력 시 종료합니다. 계속하시려면 아무키나 눌러주세요");
                 String inputExit = sc.next();

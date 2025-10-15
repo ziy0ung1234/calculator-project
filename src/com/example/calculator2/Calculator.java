@@ -10,6 +10,31 @@ public class Calculator {
     //기본 생성자 생략
 
     //기능
+    public boolean calculate(int a, int b, char op) {
+        boolean error = false;
+        switch(op) {
+            case '+':
+                plus(a,b);
+                break;
+            case '-':
+                minus(a,b);
+                break;
+            case '*':
+                multiply(a,b);
+                break;
+            case '/':
+                if(isNotDividedByZero(b)) {
+                    error = true;
+                } else {
+                    divide(a,b);
+                }
+                break;
+            default:
+                System.out.println("잘못된 연산기호입니다.");
+                error = true;
+        }
+        return error;
+    }
     public int plus(int a, int b) {
         result = a + b;
         setResults(result);
