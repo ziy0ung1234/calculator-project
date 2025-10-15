@@ -49,7 +49,7 @@ public class ArithmeticCalculator <T extends Number> {
             return true; // error
         }
 
-        // 결과값 저장 전 정수 실수 판별
+        // 결과값 정수 실수 판별후 해당 타입으로 저장
         double temp = operator.apply(x, y);
         result = DoubleOrInt(temp);
         setResults(result);

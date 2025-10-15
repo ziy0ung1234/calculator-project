@@ -27,12 +27,7 @@ public class ArithmeticCalculatorApp {
 
             char operator = opInput.charAt(0);
 
-            boolean calErr;
-            if (input1.matches("^-?\\d*\\.\\d+$") || input2.matches("^-?\\d*\\.\\d+$")) {
-                calErr = calc.calculate(Double.parseDouble(input1), Double.parseDouble(input2), operator);
-            } else {
-                calErr = calc.calculate(Integer.parseInt(input1), Integer.parseInt(input2), operator);
-            }
+            boolean calErr = calc.calculate(Integer.parseInt(input1), Integer.parseInt(input2), operator);
             Number result = calc.getResult();
 
             if (!calErr) {
