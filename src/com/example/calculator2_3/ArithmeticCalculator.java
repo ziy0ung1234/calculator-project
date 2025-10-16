@@ -2,35 +2,13 @@ package com.example.calculator2_3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.DoubleBinaryOperator; // 함수형 인터페이스 임포트
 import java.util.stream.Collectors;
 
-enum OperatorType {
-    PLUS('+',(x, y) -> x + y),
-    MINUS('-', (x, y) -> x - y),
-    MULTIPLY('*', (x, y) -> x * y),
-    DIVIDE('/',(x, y) -> x / y);
-    //속성
-    private final char operator;
-    private final DoubleBinaryOperator op;
-
-    //생성자
-    OperatorType(char operator, DoubleBinaryOperator op) {
-        this.operator = operator;
-        this.op = op;
-    }
-
-    //기능
-    public static OperatorType parseOperator(char c) {
-        for (OperatorType op : OperatorType.values()) {
-            if (op.operator == c) return op;
-        }
-        return null;
-    }
-    public double apply(double x, double y) {
-        return op.applyAsDouble(x, y);
-    }
-}
+/*
+ *[ArithmeticCalculator] 계산 결과 조회/저장 클래스
+ * 속성 필드 private로 getter를 통해 접근한다
+ * 연산 결과 나온 시점에 setter로 리스트에 저장한다
+ */
 public class ArithmeticCalculator <T extends Number> {
     //속성
     private Number result = 0;
@@ -40,7 +18,7 @@ public class ArithmeticCalculator <T extends Number> {
 
     //기능
     public boolean calculate(T a, T b, char op) {
-        OperatorType operator = OperatorType.parseOperator(op);
+        OperatorType operator = OperatorType.getOperator(op);
         if (operator == null) {
             System.out.println("잘못된 연산기호입니다.");
             return true;
@@ -53,7 +31,7 @@ public class ArithmeticCalculator <T extends Number> {
 
         // 결과값 정수 실수 판별후 해당 타입으로 저장
         try {
-            double temp = operator.apply(x, y);
+            double temp = operator.applyResult(x, y);
             result = DoubleOrInt(temp);
             setResults(result);
             return false;
@@ -62,7 +40,6 @@ public class ArithmeticCalculator <T extends Number> {
             return true;
         }
     }
-    // 연산 결과 관련 기능
     public Number getResult(){
         return result;
     }
@@ -70,7 +47,7 @@ public class ArithmeticCalculator <T extends Number> {
         return new ArrayList<>(this.results);
     }
     public void setResults(Number result) {
-        this.results.add(result);
+        if(result != null) this.results.add(result);
     }
     public void filterResults(String str) {
         try{
