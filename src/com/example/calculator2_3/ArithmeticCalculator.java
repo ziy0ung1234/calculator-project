@@ -2,6 +2,7 @@ package com.example.calculator2_3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /*
@@ -18,11 +19,12 @@ public class ArithmeticCalculator <T extends Number> {
 
     //기능
     public boolean calculate(T a, T b, char op) {
-        OperatorType operator = OperatorType.getOperator(op);
-        if (operator == null) {
+        Optional<OperatorType> optionalOp = OperatorType.getOperator(op);
+        if (optionalOp.isEmpty()) {
             System.out.println("잘못된 연산기호입니다.");
             return true;
         }
+        OperatorType operator = optionalOp.get();
         double x = a.doubleValue();
         double y = b.doubleValue();
         if (operator == OperatorType.DIVIDE && isNotDividedByZero(y)) {
@@ -47,7 +49,7 @@ public class ArithmeticCalculator <T extends Number> {
         return new ArrayList<>(this.results);
     }
     public void setResults(Number result) {
-        if(result != null) this.results.add(result);
+        Optional.ofNullable(result).ifPresent(x -> this.results.add(x));
     }
     public void filterResults(String str) {
         try{

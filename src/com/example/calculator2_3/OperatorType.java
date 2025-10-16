@@ -1,5 +1,7 @@
 package com.example.calculator2_3;
 
+import java.util.Optional;
+
 /*
 *[OperatorType] enum 맵핑 클래스
 * 기존 연산까지 담당하던 로직 분리
@@ -21,11 +23,11 @@ public enum OperatorType {
     }
 
     //기능
-    public static OperatorType getOperator(char c) {
+    public static Optional<OperatorType> getOperator(char c) {
         for (OperatorType op : OperatorType.values()) {
-            if (op.operator == c) return op;
+            if (op.operator == c) return Optional.of(op);
         }
-        return null;
+        return Optional.empty();
     }
     public double applyResult(double x, double y) {
         return op.apply(x, y);
