@@ -52,10 +52,15 @@ public class ArithmeticCalculator <T extends Number> {
         }
 
         // 결과값 정수 실수 판별후 해당 타입으로 저장
-        double temp = operator.apply(x, y);
-        result = DoubleOrInt(temp);
-        setResults(result);
-        return false;
+        try {
+            double temp = operator.apply(x, y);
+            result = DoubleOrInt(temp);
+            setResults(result);
+            return false;
+        } catch (ArithmeticException e) {
+            System.out.println("연산 중 오류가 발생했습니다: " + e.getMessage());
+            return true;
+        }
     }
     // 연산 결과 관련 기능
     public Number getResult(){
@@ -68,12 +73,17 @@ public class ArithmeticCalculator <T extends Number> {
         this.results.add(result);
     }
     public void filterResults(String str) {
-        Number num = str.contains(".") ? Double.parseDouble(str) : Integer.parseInt(str);
-        List<Number> numList = getResults().stream()
-                        .filter(n -> n.doubleValue() > num.doubleValue())
-                        .collect(Collectors.toList());
+        try{
+            Number num = str.contains(".") ? Double.parseDouble(str) : Integer.parseInt(str);
+            List<Number> numList = getResults().stream()
+                    .filter(n -> n.doubleValue() > num.doubleValue())
+                    .collect(Collectors.toList());
 
-        System.out.println(" 당신이 입력한 값보다 큰 결과들 입니다.: "+ numList);
+            System.out.println(" 당신이 입력한 값보다 큰 결과들 입니다.: "+ numList);
+        } catch(ArithmeticException e){
+            System.out.println("잘못된 숫자 입력입니다.");
+        }
+
     }
     //검증
     public boolean isDigit(String str) {
