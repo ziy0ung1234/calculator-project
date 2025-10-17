@@ -24,12 +24,12 @@
   - 연산 결과 조회 가능
 ### Level.2
 - 기능 단위로 클래스 생성
-- - Calculator 클래스
+- `Calculator` 클래스
   - 사칙연산 수행
   - 인풋값 입력시 검증 메소드
   - 결과값 반환, 연산 결과 리스트는 ArrayDeque로저장
   - 연산결과 저장 필드는 접근제어자 private 사용
-- CalculatorApp 클래스
+- `CalculatorApp` 클래스
   - 연산부분 제거
   - 연산 결과값은 getter 메소드로 출력
   - 연산 결과값은 각연산의 메소드에서 저장
@@ -61,7 +61,7 @@
   - 기존 ArrayDeque List로 수정 ( Lv2 가장 오래된값 삭제하는 메소드 동시에 제거)
   - 실수까지 계산 가능하도록 제네릭 Number 로 변경
 - `ArithmeticCalculatorApp` 입출력 클래스
-  -filterResults를 호출해 간접 접근으로 사용자가 입력한 값보다 큰 결과 리스트 출력
+  - filterResults를 호출해 간접 접근으로 사용자가 입력한 값보다 큰 결과 리스트 출력
 
 
 ## 🛠️ 기술 스택
