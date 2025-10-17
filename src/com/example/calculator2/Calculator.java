@@ -44,7 +44,7 @@ public class Calculator {
     public ArrayDeque<Integer> getResults() {
         return new ArrayDeque<>(this.results);
     }
-    private void setResults(int result) {
+    public void setResults(int result) {
         this.results.add(result);
     }
     public void removeFirstResult() {
