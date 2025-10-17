@@ -1,7 +1,7 @@
 package com.example.calculator2_3;
 import java.util.*;
 
-/*
+/**
 * [ArithmeticCalculatorApp] 입출력 클래스
 * 연산에 필요한 입력과 그에 따른 결과를 출력
 */

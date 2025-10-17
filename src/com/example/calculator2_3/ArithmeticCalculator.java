@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/*
+/**
  *[ArithmeticCalculator] 계산 결과 조회/저장 클래스
  * 속성 필드 private로 getter를 통해 접근한다
  * 연산 결과 나온 시점에 setter로 리스트에 저장한다
+ * @param <T> Number 타입을 상속한 숫자형 타입 (Integer, Double 등)
  */
 public class ArithmeticCalculator <T extends Number> {
     //속성
@@ -18,6 +19,12 @@ public class ArithmeticCalculator <T extends Number> {
     //기본 생성자 생략
 
     //기능
+    /**
+     * @param a 첫 번째 숫자 (T 타입)
+     * @param b 두 번째 숫자 (T 타입)
+     * @param op 연산자 문자 ('+', '-', '*', '/')
+     * @return 오류 시 true, 정상 수행 false
+     */
     public boolean calculate(T a, T b, char op) {
         Optional<OperatorType> optionalOp = OperatorType.getOperator(op);
         if (optionalOp.isEmpty()) {
