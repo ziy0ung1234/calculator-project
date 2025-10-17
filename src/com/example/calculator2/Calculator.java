@@ -14,47 +14,29 @@ public class Calculator {
         boolean error = false;
         switch(op) {
             case '+':
-                plus(a,b);
+                result = a + b;
                 break;
             case '-':
-                minus(a,b);
+                result = a - b;
                 break;
             case '*':
-                multiply(a,b);
+                result = a * b;
                 break;
             case '/':
                 if(isNotDividedByZero(b)) {
                     error = true;
                 } else {
-                    divide(a,b);
+                    result = a / b;
                 }
                 break;
             default:
                 System.out.println("잘못된 연산기호입니다.");
                 error = true;
         }
+        if(!error) setResults(result);
         return error;
     }
-    public int plus(int a, int b) {
-        result = a + b;
-        setResults(result);
-        return result;
-    }
-    public int minus(int a, int b) {
-        result = a - b;
-        setResults(result);
-        return result;
-    }
-    public int multiply(int a, int b) {
-        result = a * b;
-        setResults(result);
-        return result;
-    }
-    public int divide(int a, int b) {
-        result = a / b;
-        setResults(result);
-        return result;
-    }
+
     // 연산 결과 관련 기능
     public int getResult(){
         return this.result;
