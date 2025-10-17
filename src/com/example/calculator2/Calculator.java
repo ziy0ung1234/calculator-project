@@ -57,12 +57,12 @@ public class Calculator {
     }
     // 연산 결과 관련 기능
     public int getResult(){
-        return result;
+        return this.result;
     }
     public ArrayDeque<Integer> getResults() {
         return new ArrayDeque<>(this.results);
     }
-    public void setResults(int result) {
+    private void setResults(int result) {
         this.results.add(result);
     }
     public void removeFirstResult() {
