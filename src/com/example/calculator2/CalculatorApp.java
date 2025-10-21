@@ -28,17 +28,16 @@ public class CalculatorApp {
             int firstNum = Integer.parseInt(input1);
             int secondNum = Integer.parseInt(input2);
             char operator = opInput.charAt(0);
-
-            boolean calErr = cal.calculate(firstNum, secondNum, operator);
-            if(!calErr) {
-                System.out.println("결과는 " + cal.getResult() + "입니다.");
+            try {
+                int result = cal.calculate(firstNum, secondNum, operator);
+                System.out.println("결과는 " + result + "입니다.");
                 System.out.println("더 계산하시겠습니까? exit 입력 시 종료합니다. 계속하시려면 아무키나 눌러주세요");
                 String inputExit = sc.next();
                 if(inputExit.equalsIgnoreCase("exit")) {
                     break;
                 }
-            } else {
-                System.out.println("다시 입력해주세요.");
+            } catch(ArithmeticException | IllegalArgumentException e) {
+                System.out.println("오류: " + e.getMessage() + " 다시 입력해주세요.");
             }
         }
         cal.removeFirstResult();

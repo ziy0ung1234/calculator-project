@@ -4,14 +4,13 @@ import java.util.ArrayDeque;
 
 public class Calculator {
     //속성
-    private int result = 0;
     private ArrayDeque<Integer> results = new ArrayDeque<>();
 
     //기본 생성자 생략
 
     //기능
-    public boolean calculate(int a, int b, char op) {
-        boolean error = false;
+    public int calculate(int a, int b, char op) {
+        int result;
         switch(op) {
             case '+':
                 result = a + b;
@@ -24,23 +23,19 @@ public class Calculator {
                 break;
             case '/':
                 if(isNotDividedByZero(b)) {
-                    error = true;
+                    throw new ArithmeticException("0으로 나눌 수 없습니다.");
                 } else {
                     result = a / b;
                 }
                 break;
             default:
-                System.out.println("잘못된 연산기호입니다.");
-                error = true;
+                throw new IllegalArgumentException("잘못된 연산기호입니다.");
         }
-        if(!error) setResults(result);
-        return error;
+        setResults(result);
+        return result;
     }
 
     // 연산 결과 관련 기능
-    public int getResult(){
-        return this.result;
-    }
     public ArrayDeque<Integer> getResults() {
         return new ArrayDeque<>(this.results);
     }
