@@ -30,26 +30,23 @@ public class ArithmeticCalculatorApp {
             if (opInput.equalsIgnoreCase("exit")) break;
 
             char operator = opInput.charAt(0);
-
-            boolean calErr = calc.calculate(Double.parseDouble(input1), Double.parseDouble(input2), operator);
-            Number result = calc.getResult();
-
-            if (!calErr) {
+            try {
+                Number result = calc.calculate(Double.parseDouble(input1), Double.parseDouble(input2), operator);
                 System.out.println("결과는 " + result + "입니다.");
                 System.out.println("더 계산하시겠습니까? exit 입력 시 종료합니다. 계속하시려면 아무키나 눌러주세요");
                 String inputExit = sc.next();
                 if (inputExit.equalsIgnoreCase("exit")) break;
-            } else {
-                System.out.println("다시 입력해주세요.");
+            } catch (ArithmeticException | IllegalArgumentException e) {
+                System.out.println("오류: " + e.getMessage() + " 다시 입력해주세요.");
+                // 사용자 입력 다시 받기
             }
-
         }
         // 유저가 입력 한 값보다 큰 results 출력
         System.out.println("종료 전 숫자 하나를 입력하시면 계산 결과값들 중 선택하신 숫자보다 큰 결과를 보여드려요.");
         System.out.print("숫자를 입력하세요: ");
         String selectedNum = sc.next();
         if (calc.isDigit(selectedNum)) {
-            calc.filterResults(selectedNum);
+            calc.filterResultsGreaterThan(selectedNum);
         } else {
             System.out.println("계산기를 종료합니다.");
         }

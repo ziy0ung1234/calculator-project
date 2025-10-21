@@ -18,5 +18,8 @@ public class Operators {
     public static final Operator PLUS = (x, y) -> x + y;
     public static final Operator MINUS = (x, y) -> x - y;
     public static final Operator MULTIPLY = (x, y) -> x * y;
-    public static final Operator DIVIDE = (x, y) -> x / y;
+    public static final Operator DIVIDE = (x, y) -> {
+        if (y == 0) throw new ArithmeticException("0으로 나눌 수 없습니다.");
+        return x / y;
+    };
 }
